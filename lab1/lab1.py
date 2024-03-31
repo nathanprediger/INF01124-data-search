@@ -16,11 +16,26 @@ def write_output(arr: list, text: str="", output_f=None) -> None:
     for el in arr:
         out_str += f'{el} '
 
-
     out_str += f'{text}' if text else ''
     
     if output_f:
         output_f.write(f"{out_str}\n")
+
+
+def insertion_sort(arr, i, h, tam):
+    moves = 0
+    for j in range(h, tam):
+        key = arr[j]
+        i = j
+    
+        while i >= h and arr[i - h] > key:
+            arr[i] = arr[i - h]
+            i -= h
+            moves += 1
+
+        arr[i] = key
+
+    return moves
 
 
 def shell_sort(arr: list, tam: int, seq: list, name: str, out_f=None, time_f=None, cpu=None, verbose: bool=False) -> tuple:
@@ -38,16 +53,12 @@ def shell_sort(arr: list, tam: int, seq: list, name: str, out_f=None, time_f=Non
         verbose: verbose option to print information while executing
 
     Returns:
-        (moves, time): moves made and total execution time in seconds
+        (moves, time): moves made and total execution time in milliseconds
     '''
 
     moves = 0
-    # sequence index
     seq_i = 0
-    # creates array copy 
     arr_c = arr[:]
-    # gets CPU name
-    runtime = time.time()
 
     print(f"{name} ", end=" ") if verbose else 0
     write_output(arr_c, f"SEQ={name}", out_f)
@@ -56,45 +67,34 @@ def shell_sort(arr: list, tam: int, seq: list, name: str, out_f=None, time_f=Non
     while seq[seq_i + 1] < tam: 
         seq_i += 1
 
+    runtime = time.perf_counter()
     while seq_i >= 0:
         h = seq[seq_i]
-
-        for j in range(h, tam):
-            key = arr_c[j]
-            i = j
-            
-            while i >= h and arr_c[i - h] > key:
-                arr_c[i] = arr_c[i - h]
-                i -= h
-                moves += 1
-
-            arr_c[i] = key
-
+        moves += insertion_sort(arr_c, i, h, tam)
         write_output(arr_c, f"INCR={h}", out_f)
         seq_i -= 1 
     
-    runtime = time.time() - runtime
+    runtime = time.perf_counter() - runtime
 
+    # writes sequence name, array length, time in seconds and cpu-name info
     if time_f:
-        # writes sequence name, array length, time in seconds and cpu-name info
-        time_f.write(f"{name}, {tam}, {runtime * 1000}, {cpu}\n")
+        time_f.write(f"{name}, {tam}, {round(runtime * 1000, 7)}, {cpu}\n")
 
-    return (moves, runtime)
+    return (moves, round(runtime * 1000, 7))
 
 
-def run_sequences(arr: list, tam: int, out_f=None, time_f=None, verbose: bool=False) -> None:
+def run_sequences(arr: list, tam: int, out_f=None, time_f=None, cpu_name="", verbose: bool=False) -> None:
     '''
     Runs the selected sequences on shell_sort for the given array
     '''
 
-    cpu_name = cpuinfo.get_cpu_info()['brand_raw']
     sequences = [(shell_seq, SHELL), (knuth_seq, KNUT), (ciura_seq, CIURA)]
     for s in sequences:
         info = shell_sort(arr, tam, s[0], s[1], out_f, time_f, cpu_name, verbose)
         print(info) if verbose else 0
 
 
-def process_file(input: str, verbose: bool=False) -> None:
+def process_file(input: str, cpu_name: str, verbose: bool=False) -> None:
     '''
     Opens input file and execute shell_sort for each line. Writes the output to the output file.
     Also writes runtime information to another file.
@@ -111,15 +111,15 @@ def process_file(input: str, verbose: bool=False) -> None:
         tam = arr[0]
         arr = arr[1:]
         print(f"\n----- ARRAY {arr_n} -----") if verbose else 0
-        run_sequences(arr, tam, f_out, time_f, verbose)
+        run_sequences(arr, tam, f_out, time_f, cpu_name, verbose)
         arr_n += 1
 
     f.close()
     f_out.close()
     time_f.close()
 
-
+cpu_name = cpuinfo.get_cpu_info()['brand_raw']
 inp_files = ["1", "2"]
 for i in inp_files:
     print(f"# Runing shell_sort sequences for 'input/input{i}.txt'")
-    process_file(i, 1)
+    process_file(i, cpu_name)
