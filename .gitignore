@@ -1,7 +1,9 @@
-.vscode
 # Ignore all
 *
 # Unignore all with extensions
 !*.*
 # Unignore all dirs
 !*/
+
+output*.txt
+time_data*.txt
