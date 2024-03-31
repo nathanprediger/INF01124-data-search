@@ -107,9 +107,8 @@ def process_file(input: str, cpu_name: str, verbose: bool=False) -> None:
     arr_n = 1
     for x in f:
         # ignores last term ('\n') and converts the terms to int using eval function
-        arr = [eval(n) for n in x.split(' ')[:-1]]
-        tam = arr[0]
-        arr = arr[1:]
+        arr = [int(n) for n in x.split(' ')[:-1]]
+        tam = arr.pop(0)
         print(f"\n----- ARRAY {arr_n} -----") if verbose else 0
         run_sequences(arr, tam, f_out, time_f, cpu_name, verbose)
         arr_n += 1
