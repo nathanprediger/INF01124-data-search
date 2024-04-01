@@ -6,4 +6,5 @@
 !*/
 
 output*.txt
+__pycache__
 time_data*.txt
