@@ -47,6 +47,7 @@ def shell_sort(arr: list, tam: int, seq: list, name: str=None, out_f=None, time_
         time: total execution time in milliseconds
     '''
 
+    h = 0
     seq_i = 0
     arr_c = arr[:]
 
