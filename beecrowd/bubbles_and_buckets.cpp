@@ -4,29 +4,36 @@
 
 using namespace std;
 
-void print_array(int arr[], int tam) {
-    int i;
-    for (i = 0; i < tam; i++) printf("%d ", arr[i]);
-}
+int moves = 0;
+int ciura_seq[17] = {1,4,10,23,57,132,301,701,1577,3548,7983,17961,40412,90927,204585,460316,1035711};
+int seq_i = 0;
 
-int insertion_sort(int arr[], int tam) {
-    int moves = 0;
+void insertion_sort(int arr[], int tam, int h) {
     int i, j, key;
 
     for (j = 1; j < tam; j++) {
         key = arr[j];
-        i = j - 1;
+        i = j - h;
 
         while (i >= 0 && arr[i] > key) {
-            arr[i + 1] = arr[i];
-            i--;
+            arr[i + h] = arr[i];
+            i -= h;
             moves++;
         }
 
-        arr[i + 1] = key;
+        arr[i + h] = key;
     }
+}
 
-    return moves;
+void shell_sort(int arr[], int tam) {
+    int h, j;
+
+    while (ciura_seq[seq_i + 1] < tam) seq_i++;
+    while (seq_i >= 0) {
+        h = ciura_seq[seq_i];
+        insertion_sort(arr, tam, h);            
+        seq_i--;
+    }
 }
 
 int main() {
@@ -35,9 +42,10 @@ int main() {
     int tam, i;
 
     do {
-        // reads line
         i = 0;
         tam = 0;
+        moves = 0;
+
         while (scanf("%d", &buffer)) {
             if (tam == 0) {
                 tam = buffer;
@@ -50,11 +58,8 @@ int main() {
         }
 
         if (buffer) {
-            if (insertion_sort(arr, tam) % 2) {
-                cout << "Marcelo\n";
-            } else {
-                cout << "Carlos\n";
-            }
+            shell_sort(arr, tam);
+            cout << (moves % 2 ? "Marcelo\n" : "Carlos\n");
         }
 
         fflush(stdin);
