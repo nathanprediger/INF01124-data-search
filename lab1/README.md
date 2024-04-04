@@ -21,9 +21,9 @@ The live above shows an example of input filenames. After that, it's important t
 When verbose is `true`, the program will print the sequence used and the time it took to sort the array with that sequence. Besides, the output of each step is written to an output file in the `/outputs` folder.
 Additionally, a text file with information about the size of the array, time taken, and processor used are printed into another file.
 
-When verbose is `false`, only the data about the array and time taken are writen in the output folder.
+When verbose is `false`, only the data about the array and time taken are written in the output folder.
 
-<b>By defalut, verbose is `false`.</b>
+<b>By default, verbose is `false`.</b>
 
 ## Sequences used
 
