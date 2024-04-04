@@ -10,6 +10,21 @@ pip install py-cpuinfo
 ```
 after installing the `py-cpuinfo` package, you're able to run the script
 
+## How it works
+
+The main code reads the inputs declared on the `inp_files` array. The inputs are read from the directory `/inputs/` and their name is always `input<x>.txt`, where x is the name which was given on the inp_files array:
+```python
+inp_files = ["1", "-big_numbers", "-test_one"]
+```
+The live above shows an example of input filenames. After that, it's important to understand the function `process_input()`, specialy, the last argument: verbose.
+
+When verbose is `true`, the program will print the sequence used and the time it took to sort the array with that sequence. Besides, the output of each step is written to an output file in the `/outputs` folder.
+Additionally, a text file with information about the size of the array, time taken, and processor used are printed into another file.
+
+When verbose is `false`, only the data about the array and time taken are writen in the output folder.
+
+<b>By defalut, verbose is `false`.</b>
+
 ## Sequences used
 
 The sequenced used are hardcoded to minize execution time. They are: powers of 2 (initialy proposed sequence for the shell sort algorithm), the Knuth sequence and the Ciura sequence. <br>Learn more about the available sequences for the shell sort algorithm on it's [Wikipedia page](https://en.wikipedia.org/wiki/Shellsort).
