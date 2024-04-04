@@ -16,7 +16,7 @@ The main code reads the inputs declared on the `inp_files` array. The inputs are
 ```python
 inp_files = ["1", "-big_numbers", "-test_one"]
 ```
-The live above shows an example of input filenames. After that, it's important to understand the function `process_input()`, specialy, the last argument: verbose.
+The live above shows an example of input filenames. After that, it's important to understand the function `process_input()`, especially, the last argument: verbose.
 
 When verbose is `true`, the program will print the sequence used and the time it took to sort the array with that sequence. Besides, the output of each step is written to an output file in the `/outputs` folder.
 Additionally, a text file with information about the size of the array, time taken, and processor used are printed into another file.
