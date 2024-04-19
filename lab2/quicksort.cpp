@@ -31,7 +31,7 @@ int lomuto(int arr[], int left, int right) {
 // return position of last smaller element of partition
 int hoare(int arr[], int left, int right) {
     int chave, i, j;
-    chave = arr[left]; 
+    chave = arr[left];
     i = left; 
     j = right;
 
