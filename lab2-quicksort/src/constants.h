@@ -7,5 +7,12 @@
 // partiotioner choices
 #define RANDOM 'R'
 #define MEDIAN 'M'
+#include <string>
+
+typedef struct test_info {
+    char partitioner;
+    char partitioning;
+    std::string output_file;
+} Test_info;
 
 #endif
