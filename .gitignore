@@ -2,6 +2,8 @@
 *
 # Unignore all with extensions
 !*.*
+!*/*.*
+!makefile
 # Unignore all dirs
 !*/
 
