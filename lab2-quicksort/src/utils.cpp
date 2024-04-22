@@ -5,6 +5,7 @@
 #include <map>
 #include <random>
 #include <string>
+#include <iostream>
 
 void swap(int arr[], int i, int f) {
     int aux;
@@ -39,11 +40,12 @@ void insertion_sort(int arr[], int tam) {
 }
 
 int median3(int arr[], int min, int max) {
-    int aux[3], med = floor((min - max) / 2);
+    int aux[3], med = floor((max - min) / 2);
 
     aux[0] = arr[min];
     aux[1] = arr[med];
     aux[2] = arr[max];
+    // std::cout<< med;
     insertion_sort(aux, 3);
 
     if (arr[min] == aux[1])
