@@ -32,7 +32,6 @@ int hoare(int arr[], int left, int right, Test_info *test_data) {
     while (i < j) {
         while (arr[j] > chave && i < j) j--;
         arr[i] = arr[j];
-        test_data->swaps++;
         while (arr[i] <= chave && i < j) i++;
         arr[j] = arr[i];
         test_data->swaps++;

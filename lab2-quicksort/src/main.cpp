@@ -64,6 +64,7 @@ int process_file(char path[], Test_info *test_data) {
             arr_pos++;
         }
 
+        // if it has finished reading array
         if (arr_pos == arr_size) {
             arr[arr_pos] = '\0';
             test_data->size = arr_size;
@@ -71,6 +72,7 @@ int process_file(char path[], Test_info *test_data) {
             quicksort(arr, 0, arr_size - 1, test_data);
             test_data->exe_time = duration_cast<milliseconds>(high_resolution_clock::now() - x).count();
             write_output(*test_data);
+            // for (int j = 0; j < arr_size; j++) printf("%d ", arr[j]);
             arr_size = 0;
         }
 
