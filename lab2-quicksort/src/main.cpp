@@ -17,8 +17,6 @@ int process_file(char path[], Test_info test_data) {
     FILE *file = fopen(path, "r");
     int arr[ARR_SIZE], arr_size = 0, n, arr_pos;
     int count = 0;
-  
-    
 
     if (!file) { 
         cout << "Unable to open file";
@@ -27,7 +25,6 @@ int process_file(char path[], Test_info test_data) {
 
     while (fscanf(file, "%d", &n) != EOF) {
         if (arr_size == 0) {
-            srand(time(NULL));
             arr_size = n;
             arr_pos = 0;
         } else {

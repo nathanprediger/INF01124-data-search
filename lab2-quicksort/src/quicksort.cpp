@@ -46,14 +46,14 @@ int partition(int arr[], int i, int f, int partitioning) {
 }
 
 void quicksort(int arr[], int i, int f, char partitioner, char partiotining) {
-    char p, r;
+    int p, r;
+
     if (f > i) {
         if (partitioner == MEDIAN)
             p = median3(arr, i, f);
         else
-            p = random_number(i, f);
+            p = get_random_number(i, f);
             
-        printf("\n(%d, %d): %d", i, f, p);
         swap(arr, i, p); // puts partitioner element at the first position of sub-array
 
         r = partition(arr, i, f, partiotining);

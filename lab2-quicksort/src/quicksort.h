@@ -4,6 +4,12 @@ int lomuto(int arr[], int left, int right);
 // a more complex and detailed partitioning algorithm, makes less moves
 int hoare(int arr[], int left, int right);
 
+/// @brief Executes partitioning according to algorithm passed (LOTUMO/HOARE)
+/// @param arr array to partition
+/// @param i first index of array to partition
+/// @param f last index of array to partition
+/// @param partitioning partitioning algorithm (LOMUTO/HOARE)
+/// @return index of last smaller element (middle of partition)
 int partition(int arr[], int i, int f, int partitioning);
 
 /*!*****************************************************************************
