@@ -6,53 +6,53 @@
 #include "quicksort.h"
 
 #define ARR_SIZE 1000000
+#define MAX_STR 100
 
 using namespace std;
 
 int swaps, recursions;
 float exe_time;
 
-int process_file(std::string path, Test_info test_data) {
-    ifstream file(path);
-    int arr[ARR_SIZE], arr_size = 0, n, i;
-    char ch; 
+int process_file(char path[], Test_info test_data) {
+    FILE *file = fopen(path, "r");
+    int arr[ARR_SIZE], arr_size = 0, n, arr_pos;
+    int count = 0;
   
+    
+
     if (!file) { 
-        cout << "Unable to open file"; 
+        cout << "Unable to open file";
         return 1; 
     }
 
-    while (file.get(ch)) { 
-        cout << ch;
-        n = (int) ch;
-        
+    while (fscanf(file, "%d", &n) != EOF) {
         if (arr_size == 0) {
-            cout << "first";
+            srand(time(NULL));
             arr_size = n;
-            i = 0;
-        } else if (ch != '\n') {
-            arr[i] = n;
-            i++;
+            arr_pos = 0;
+        } else {
+            arr[arr_pos] = n;
+            arr_pos++;
         }
 
-        // finished reading array
-        if (i == arr_size - 1) {
-            cout << "Fim array";
-            // reads \n
-            file.get(ch);
-            cout << ch;
+        if (arr_pos == arr_size) {
+            count++;
+            arr[arr_pos] = '\0';
 
-            quicksort(arr, 0, sizeof(arr) / sizeof(int), test_data.partitioner, test_data.partitioning);
-            for (int i = 0; i < arr_size; i++) printf("%d ", arr[i]);
+            quicksort(arr, 0, arr_size - 1, test_data.partitioner, test_data.partitioning);
+
+            for (int p = 0; p < arr_size; p++) printf("%d ", arr[p]);
             printf("\n");
             arr_size = 0;
+            if (count == 2) break;
         }
-    }
+
+	}
 
     cout << endl; 
   
     // Close the file 
-    file.close();
+    fclose(file);
 
 	return 0;
 }
@@ -66,7 +66,7 @@ int process_file(std::string path, Test_info test_data) {
 
 int main() {
     int i;
-    string input_path = "data/inputs/entrada-quicksort.txt";
+    char input_path[MAX_STR] = "data/inputs/entrada-quicksort.txt";
 
     Test_info tests[4] = {
         (Test_info) {RANDOM, LOMUTO, "aleatorio-lomuto.txt"},
