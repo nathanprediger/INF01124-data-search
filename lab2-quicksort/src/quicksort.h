@@ -1,8 +1,8 @@
 // lomuto partiotioning algorithm (default for simple quicksort implementations)
-int lomuto(int arr[], int left, int right);
+int lomuto(int arr[], int left, int right, Test_info *test_data);
 
 // a more complex and detailed partitioning algorithm, makes less moves
-int hoare(int arr[], int left, int right);
+int hoare(int arr[], int left, int right, Test_info *test_data);
 
 /// @brief Executes partitioning according to algorithm passed (LOTUMO/HOARE)
 /// @param arr array to partition
@@ -17,7 +17,6 @@ int partition(int arr[], int i, int f, int partitioning);
  * @param arr: array to be sorted
  * @param i: index of array first element
  * @param f: index of array last element
- * @param partitioner: RANDOM/MEDIAN
- * @param partitioning: LOMUTO/HOARE
+ * @param *test_data: pointer to test info struct
  *******************************************************************************/
-void quicksort(int arr[], int i, int f, char partitioner, char partiotining);
+void quicksort(int arr[], int i, int f, Test_info *test_data);

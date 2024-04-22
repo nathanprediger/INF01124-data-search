@@ -13,7 +13,10 @@
 typedef struct test_info {
     char partitioner;
     char partitioning;
-    std::string output_file;
+    char output_file[100];
+    FILE *file_stream;
+    int size, swaps, recursions;
+    int exe_time;
 } Test_info;
 
 #endif
