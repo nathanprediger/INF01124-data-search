@@ -37,6 +37,13 @@ void write_output(Test_info test_data) {
     fprintf(test_data.file_stream, "TEMPO %dms\n", test_data.exe_time);
 }
 
+void clear_counters(Test_info *test_data) {
+    test_data->recursions = 0;
+    test_data->exe_time = 0;
+    test_data->swaps = 0;
+    test_data->size = 0;
+}
+
 int run_test(char path[], Test_info *test_data) {
     // for execution time perf
     using std::chrono::high_resolution_clock;
@@ -72,6 +79,7 @@ int run_test(char path[], Test_info *test_data) {
             quicksort(arr, 0, arr_size - 1, test_data);
             test_data->exe_time = duration_cast<milliseconds>(high_resolution_clock::now() - x).count();
             write_output(*test_data);
+            clear_counters(test_data);
             arr_size = 0;
         }
 
