@@ -73,7 +73,6 @@ int run_test(char path[], Test_info *test_data) {
 
         // if it has finished reading array
         if (arr_pos == arr_size) {
-            arr[arr_pos] = '\0';
             test_data->size = arr_size;
             auto x = high_resolution_clock::now();
             quicksort(arr, 0, arr_size - 1, test_data);
