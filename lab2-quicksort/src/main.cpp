@@ -37,7 +37,7 @@ void write_output(Test_info test_data) {
     fprintf(test_data.file_stream, "TEMPO %dms\n", test_data.exe_time);
 }
 
-int process_file(char path[], Test_info *test_data) {
+int run_test(char path[], Test_info *test_data) {
     // for execution time perf
     using std::chrono::high_resolution_clock;
     using std::chrono::duration_cast;
@@ -72,7 +72,6 @@ int process_file(char path[], Test_info *test_data) {
             quicksort(arr, 0, arr_size - 1, test_data);
             test_data->exe_time = duration_cast<milliseconds>(high_resolution_clock::now() - x).count();
             write_output(*test_data);
-            // for (int j = 0; j < arr_size; j++) printf("%d ", arr[j]);
             arr_size = 0;
         }
 
@@ -90,15 +89,15 @@ int main() {
     char input_path[MAX_STR] = "data/inputs/entrada-quicksort.txt";
 
     Test_info tests[4] = {
-        (Test_info) {RANDOM, LOMUTO, "aleatorio-lomuto.txt", NULL, 0,0,0,0},
-        (Test_info) {RANDOM, HOARE, "aleatorio-hoare.txt", NULL, 0,0,0,0}, 
-        (Test_info) {MEDIAN, LOMUTO, "mediana-lomuto.txt", NULL, 0,0,0,0}, 
-        (Test_info) {MEDIAN, HOARE, "mediana-hoare.txt", NULL, 0,0,0,0}
+        (Test_info) {RANDOM, LOMUTO, "stats-aleatorio-lomuto.txt", NULL, 0,0,0,0},
+        (Test_info) {RANDOM, HOARE, "stats-aleatorio-hoare.txt", NULL, 0,0,0,0}, 
+        (Test_info) {MEDIAN, LOMUTO, "stats-mediana-lomuto.txt", NULL, 0,0,0,0}, 
+        (Test_info) {MEDIAN, HOARE, "stats-mediana-hoare.txt", NULL, 0,0,0,0}
     };
 
     open_output_files(tests, n_tests);
     for (i = 0; i < n_tests; i++) {
-        process_file(input_path, &tests[i]);
+        run_test(input_path, &tests[i]);
     }
     close_output_files(tests, n_tests);
 }
