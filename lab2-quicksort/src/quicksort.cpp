@@ -52,8 +52,8 @@ int partition(int arr[], int i, int f, Test_info *test_data) {
 void quicksort(int arr[], int i, int f, Test_info *test_data) {
     int p, r;
 
-    test_data->recursions++;
     if (f > i) {
+        test_data->recursions++;
         if (test_data->partitioner == MEDIAN)
             p = median3(arr, i, f);
         else
