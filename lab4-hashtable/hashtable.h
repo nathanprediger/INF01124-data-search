@@ -19,5 +19,5 @@ typedef struct player {
 
  vector<vector<Player>> create_hashtable(string file, int sizeHash);
  void insertHash (string stats_player, vector<vector<Player>>& hashtable, int sizeHash);
- Player searchHash(int fifa_id, vector<vector<Player>> hashtable, int &tests, int &found);
- void searchHashArq(vector<vector<Player>> hashtable, string file_output);
+ Player searchHash(int fifa_id, vector<vector<Player>> &hashtable, int &tests, int &found);
+ void searchHashArq(vector<vector<Player>> &hashtable, string file_output);

@@ -71,7 +71,7 @@ void insertHash(string stats_player, vector<vector<Player>> &hashtable, int size
     hashtable[auxPlayer.sofifa_id % sizeHash].push_back(auxPlayer); 
 }
 
-Player searchHash(int fifa_id, vector<vector<Player>> hashtable, int &tests, int &found)
+Player searchHash(int fifa_id, vector<vector<Player>> &hashtable, int &tests, int &found)
 {
     int i=0;
     int key=fifa_id % hashtable.size();
@@ -79,7 +79,7 @@ Player searchHash(int fifa_id, vector<vector<Player>> hashtable, int &tests, int
     auxPlayer.sofifa_id=fifa_id;
     auxPlayer.name="NAO ENCONTRADO";
     auxPlayer.positions="";
-    if(!hashtable[fifa_id % hashtable.size()].empty()){
+    if(!hashtable[key].empty()){
         while((i<hashtable[key].size())&&hashtable[key][i].sofifa_id!=fifa_id) i++;
         if(hashtable[key][i].sofifa_id==fifa_id){
             tests+=i;
@@ -91,12 +91,13 @@ Player searchHash(int fifa_id, vector<vector<Player>> hashtable, int &tests, int
     return auxPlayer;
 }
 
-void searchHashArq(vector<vector<Player>> hashtable, string file_output)
+void searchHashArq(vector<vector<Player>> &hashtable, string file_output)
 {
     ifstream input ("input/consultas.csv");
     ofstream output (file_output);
     string temp;
     Player auxPlayer;
+    vector<Player> consultas;
     int n_test=0;
     int deltaTest=0;;
     int maxTest=0;
@@ -105,16 +106,20 @@ void searchHashArq(vector<vector<Player>> hashtable, string file_output)
     auto start = chrono::high_resolution_clock::now();
     while(getline(input, temp)){
         deltaTest=n_test;
-        auxPlayer=searchHash(stoi(temp), hashtable, n_test, found);
+        consultas.push_back(searchHash(stoi(temp), hashtable, n_test, found));
         deltaTest=n_test-deltaTest;
         if(deltaTest>=maxTest) maxTest=deltaTest;
-        output << auxPlayer.sofifa_id << " " << auxPlayer.name << endl;
     }
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
     output << "TEMPO DE REALIZACAO DE TODAS AS CONSULTAS: " << duration << "ms"<< endl;
+    for (int i=0;i<consultas.size();i++){
+        output << consultas[i].sofifa_id << " " << consultas[i].name << endl;
+    }
     output << "MAXIMO DE NUMERO DE TESTES POR NOME ENCONTRADO: " << maxTest << endl;
     output << "MEDIA NUMERO DE TESTES POR NOME ENCONTRADO: " << n_test/found << endl;
     input.close();
     output.close();
 }
+
+
